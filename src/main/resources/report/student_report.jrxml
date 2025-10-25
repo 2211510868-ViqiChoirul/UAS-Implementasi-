@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Simple JasperReports JRXML template with ID range parameter -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+        http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+    name="student_report" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="50" bottomMargin="50" uuid="d1a8f1b0-0000-0000-0000-000000000000">
+
+    <parameter name="startId" class="java.lang.Integer"/>
+    <parameter name="endId" class="java.lang.Integer"/>
+    <parameter name="reportTitle" class="java.lang.String"/>
+
+    <queryString>
+        <![CDATA[SELECT student_id, name, jurusan, alamat, email FROM students WHERE student_id BETWEEN $P{startId} AND $P{endId} ORDER BY student_id]]>
+    </queryString>
+
+    <title>
+        <band height="60">
+            <staticText>
+                <reportElement x="0" y="0" width="515" height="30"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="16" isBold="true"/>
+                </textElement>
+                <text><![CDATA[$P{reportTitle}]]></text>
+            </staticText>
+            <line>
+                <reportElement x="0" y="36" width="515" height="1"/>
+            </line>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="20">
+            <staticText><reportElement x="0" y="0" width="60" height="20"/><text><![CDATA[ID]]></text></staticText>
+            <staticText><reportElement x="60" y="0" width="160" height="20"/><text><![CDATA[Name]]></text></staticText>
+            <staticText><reportElement x="220" y="0" width="120" height="20"/><text><![CDATA[Jurusan]]></text></staticText>
+            <staticText><reportElement x="340" y="0" width="100" height="20"/><text><![CDATA[Alamat]]></text></staticText>
+            <staticText><reportElement x="440" y="0" width="150" height="20"/><text><![CDATA[Email]]></text></staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="18">
+            <textField><reportElement x="0" y="0" width="60" height="18"/><textFieldExpression><![CDATA[$F{student_id}]]></textFieldExpression></textField>
+            <textField><reportElement x="60" y="0" width="160" height="18"/><textFieldExpression><![CDATA[$F{name}]]></textFieldExpression></textField>
+            <textField><reportElement x="220" y="0" width="120" height="18"/><textFieldExpression><![CDATA[$F{jurusan}]]></textFieldExpression></textField>
+            <textField><reportElement x="340" y="0" width="100" height="18"/><textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression></textField>
+            <textField><reportElement x="440" y="0" width="150" height="18"/><textFieldExpression><![CDATA[$F{email}]]></textFieldExpression></textField>
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="515" height="20"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+</jasperReport>
